@@ -1,0 +1,21 @@
+
+language: node_js
+sudo: required
+node_js:
+  - 8.11.3
+branch: master
+cache:
+  directories:
+    - node_modules
+before_install:
+  - export TZ='Asia/Shanghai'  # 设置时区
+  - npm install
+  - npm run docs:build
+deploy:
+  provider: pages
+  local_dir: './dist'
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: master
